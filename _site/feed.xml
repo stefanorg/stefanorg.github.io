@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">{{ dev playground }}</title>
+<subtitle type="text">A short tagline</subtitle>
+<generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="http://stefanorg.github.io/feed.xml" />
+<link rel="alternate" type="text/html" href="http://stefanorg.github.io" />
+<updated>2013-11-24T01:45:25+01:00</updated>
+<id>http://stefanorg.github.io/</id>
+<author>
+  <name>Stefano Corallo</name>
+  <uri>http://stefanorg.github.io/</uri>
+  <email>stefanorg@gmail.com</email>
+</author>
+
+
+<entry>
+  <title type="html"><![CDATA[Macports Abilitare Apache SSL su Mac OSX Lion]]></title>
+  <link rel="alternate" type="text/html" href="http://stefanorg.github.io/articles/abilitare-apache-ssl-osx-lion" />
+  <id>http://stefanorg.github.io/articles/abilitare-apache-ssl-osx-lion</id>
+  <published>2013-11-23T00:00:00+01:00</published>
+  <updated>2013-11-23T00:00:00+01:00</updated>
+  <author>
+    <name>Stefano Corallo</name>
+    <uri>http://stefanorg.github.io</uri>
+    <email>stefanorg@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;Dopo aver installato il server web apache, php54, mysql tramite macport (si trovano parecchie guide online basta googlare un pochino).&lt;/p&gt;
+
+&lt;p&gt;Spostiamoci nella directory di installazione di apache&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;n4z4@n4z4-mb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;16:54&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;~&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+-&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;gt;&amp;gt;cd /opt/local/apache2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;generiamo-le-chiavi-rsa-per-creare-i-certificati-da-utilizzare-con-apache&quot;&gt;Generiamo le chiavi rsa per creare i certificati da utilizzare con apache&lt;/h3&gt;
+
+&lt;p&gt;Per prima cosa creiamo la directory dove genere le chiavi&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;n4z4@n4z4-mb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;16:54&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/opt/local/apache2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+-&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;gt;&amp;gt;sudo mkdir ssl
+Password:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Per generare le chiavi usiamo il seguente comando, senza inserire nessuna passphrase in modo tale che all&amp;#8217;avvio di apache il servizio non si blocchi.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo ssh-keygen -f ssl.key
+Password:
+Generating public/private rsa key pair.
+Enter passphrase &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;empty &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;no passphrase&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 
+Enter same passphrase again: 
+Your identification has been saved in ssl.key.
+Your public key has been saved in ssl.key.pub.
+The key fingerprint is:
+19:c2:5b:ff:80:4b:30:77:96:72:c0:4c:39:ce:0c:f6 root@n4z4-mb.local
+The key&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;s randomart image is:
++--&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; RSA 2048&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;----+
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;       +o.       &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;     .o &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;. .     &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;     .&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;*&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;.&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;      &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;       BEX       &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;      . S o      &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;       . . o     &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;        .   .    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;                 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;                 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
++-----------------+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Sono state genere 2 chiavi, chiave pubblica &lt;code&gt;ssl.key.pub&lt;/code&gt; e chiave privata &lt;code&gt;ssl.key&lt;/code&gt; :&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;n4z4@n4z4-mb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;17:04&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/opt/local/apache2/ssl&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+-&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;gt;&amp;gt;ls
+ssl.key     ssl.key.pub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;generiamo-il-file-per-il-certificato-di-richiesta-requestcsr&quot;&gt;Generiamo il file per il certificato di richiesta request.csr&lt;/h3&gt;
+
+&lt;p&gt;Dobbiamo generare il certificato di richiesta &lt;code&gt;request.csr&lt;/code&gt; che ci servirà per creare il certificato SSL. 
+Per generare il certificato utilizziamo la chiave privata creata precedentemente. Dopo aver lanciato il comando ci verranno chieste alcune informazioni per la creazione del certificato di richiesta, ad esempio come CN mettete il vostro &lt;code&gt;ServerName&lt;/code&gt; nel mio caso &lt;code&gt;localhost&lt;/code&gt; &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;n4z4@n4z4-mb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;17:16&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/opt/local/apache2/ssl&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+-&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;gt;&amp;gt;sudo openssl req -new -key ssl.key -out request.csr
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Dopo aver creato il certificato di richiesta possiamo generare il nostro certificato SSL &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;n4z4@n4z4-mb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;17:28&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/opt/local/apache2/ssl&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+-&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;gt;&amp;gt;sudo openssl x509 -req -days 365 -in request.csr -signkey ssl.key -out server.crt
+Signature ok
+&lt;span class=&quot;nv&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;........
+Getting Private key
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Adesso che abbiamo generato il nostro certificato Self Signed &lt;code&gt;server.crt&lt;/code&gt;, non ci resta che configurare apache per servire le richieste &lt;code&gt;https&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;configuriamo-apache&quot;&gt;Configuriamo Apache&lt;/h3&gt;
+
+&lt;p&gt;Spostiamoci nella directory &lt;code&gt;/opt/local/apache2/conf/extra&lt;/code&gt; modifichiamo il file di configurazione del modulo ssl di apache &lt;code&gt;httpd-ssl.conf&lt;/code&gt; cerchiamo le linee che iniziano con SSLCertificateFile, SSLCertificateKeyFile e modifichiamole come segue:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;SSLCertificateFile &lt;span class=&quot;s2&quot;&gt;&amp;quot;/opt/local/apache2/ssl/server.crt&amp;quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#il nostro certificato ssl&lt;/span&gt;
+SSLCertificateKeyFile &lt;span class=&quot;s2&quot;&gt;&amp;quot;/opt/local/apache2/ssl/ssl.key&amp;quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#la nostra chiave privata&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Controllate che nello stesso file siano commentate (inizino con #) le linee che iniziano con SSLCACertificatePath, SSLCARevocationPath&lt;/p&gt;
+
+&lt;p&gt;Verifichiamo che nel file di configurazione di apache &lt;code&gt;/opt/local/apache2/httpd.conf&lt;/code&gt; sia abilitata la sezione ssl e in caso abilitiamola rimuovendo il commento # come segue:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Secure (SSL/TLS) connections&lt;/span&gt;
+Include conf/extra/httpd-ssl.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;configuriamo-il-vhost&quot;&gt;Configuriamo il vhost&lt;/h3&gt;
+&lt;p&gt;Verifichiamo che nel file di configurazione di apache &lt;code&gt;/opt/local/apache2/httpd.conf&lt;/code&gt; sia abilitata la sezione Virtual Host e in caso abilitiamola rimuovendo il commento # come segue:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Virtual hosts&lt;/span&gt;
+Include conf/extra/httpd-vhosts.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Adesso modifichiamo il virtual host &amp;#8216;/opt/local/apache2/extra/httpd-vhosts.conf&amp;#8217; aggiungiamo sotto NameVirtualHost *:80 la riga NameVirtualHost *:443 in questo modo&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;NameVirtualHost *:80
+NameVirtualHost *:443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Ora possiamo configurare un virtual host ssl come segue:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&amp;lt;VirtualHost *:443&amp;gt;
+    SSLEngine on
+    SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+    SSLCertificateFile /private/etc/apache2/ssl/server.crt
+    SSLCertificateKeyFile /private/etc/apache2/ssl/ssl.key
+    ServerName localhost &lt;span class=&quot;c&quot;&gt;#Questo e&amp;#39; lo stesso del CN utilizzato durante la generazione del certificato di richiesta request.csr&lt;/span&gt;
+    DocumentRoot &lt;span class=&quot;s2&quot;&gt;&amp;quot;/path/al/mio/sito/web&amp;quot;&lt;/span&gt;
+&amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Adesso possiamo riavviare apache e collegarci al nostro nuovo sito in HTTPS.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;n4z4@n4z4-mb&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;17:32&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;~/apache2-server/conf&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+-&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;gt;&amp;gt;sudo /opt/local/etc/LaunchDaemons/org.macports.apache2/apache2.wrapper restart
+Password:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://stefanorg.github.io/articles/abilitare-apache-ssl-osx-lion&quot;&gt;Macports Abilitare Apache SSL su Mac OSX Lion&lt;/a&gt; was originally published by Stefano Corallo at &lt;a href=&quot;http://stefanorg.github.io&quot;&gt;{{ dev playground }}&lt;/a&gt; on November 23, 2013.&lt;/p&gt;</content>
+</entry>
+
+</feed>
