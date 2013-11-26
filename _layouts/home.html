@@ -12,12 +12,24 @@
 {% include browser-upgrade.html %}
 
 {% include navigation.html %}
-
+<style type="text/css">
+.wrapper-header {
+background: #2a2a2a;
+overflow: hidden;
+height: 200px;
+position: relative;
+border-bottom: 1px solid white;
+margin-bottom: 25px;
+}
+</style>
+<!-- <div class="wrapper-header">
+  <div id="instafeed"></div>
+</div> -->
 {% if page.image.feature %}<div class="image-wrap">
   <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }} feature image" itemprop="primaryImageOfPage">
   {% if page.image.credit %}<span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>{% endif %}
-</div><!-- /.image-wrap -->{% endif %}
-
+</div>{% endif %}
+<!-- /.image-wrap -->
 <div class="article-author-top">
   {% include author-bio.html %}
 </div>

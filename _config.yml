@@ -2,7 +2,7 @@ title:            "{{ dev playground }}"
 tagline:          A short tagline
 description:      php zendframework zendframework2 zf2 zf1 javascript jquery
 #Comment out url when working locally to resolve base urls correctly
-url:              http://stefanorg.github.io
+url:              http://localhost:4000 #http://stefanorg.github.io
 disqus_shortname: devplayground
 
 # Owner/author information
