@@ -28,6 +28,7 @@
   <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
     <h2 itemprop="headline"><a href="{{ site.url }}{{ post.url }}" rel="bookmark" title="{{ post.title }}">{{ post.title }}</a></h2>
     <p itemprop="text">{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 120 }}{% endif %}</p>
+    <p class="pull-right">Tags: {% for tag in post.tags %}<a href="{{ site.url }}/tags.html#{{ tag | cgi_encode }}" title="Pagine con tag {{ tag }}" rel="tag">{{ tag }}</a>{% unless forloop.last %}&nbsp;&comma;&nbsp;{% endunless %}{% endfor %}</p>
   </article>
   {% endfor %}
 </div><!-- /#index -->

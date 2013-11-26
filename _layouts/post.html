@@ -25,7 +25,7 @@
   <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
     <div class="headline-wrap">
       <h1 itemprop="name">{{ page.title }}</h1>
-      <h2>{{ page.tagline }}</h2>
+      <h4>{{ page.tagline }}</h4>
     </div><!--/ .headline-wrap -->
     <div class="article-wrap" itemprop="text">
       {{ content }}
@@ -34,7 +34,8 @@
         <div class="article-author-bottom">
           {% include author-bio.html %}
         </div>
-        <p class="byline"><strong>{{ page.title }}</strong> was published on <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.modified %} and last modified on <time datetime="{{ page.modified | date: "%Y-%m-%d" }}" itemprop="dateModified">{{ page.modified | date: "%B %d, %Y" }}</time>{% endif %} by <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{ site.url }}/about" title="About {{ site.owner.name }}" itemprop="url">{{ site.owner.name }}</a></span></span>.</p>
+        <p class="pull-right">Tags: {% for tag in page.tags %}<a href="{{ site.url }}/tags.html#{{ tag | cgi_encode }}" title="Pagine con tag {{ tag }}" rel="tag">{{ tag }}</a>{% unless forloop.last %}&nbsp;&bull;&nbsp;{% endunless %}{% endfor %}</p>
+        <p class="byline"><strong>{{ page.title }}</strong> è stato pubblicato il <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.modified %} e modificato il <time datetime="{{ page.modified | date: "%Y-%m-%d" }}" itemprop="dateModified">{{ page.modified | date: "%B %d, %Y" }}</time>{% endif %} da <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{ site.url }}/about" title="About {{ site.owner.name }}" itemprop="url">{{ site.owner.name }}</a></span></span>.</p>
         {% if site.disqus_shortname and page.comments %}<section id="disqus_thread"></section>{% endif %}
       </footer>
     </div><!-- /.article-wrap -->
@@ -43,7 +44,7 @@
 
 <div class="footer-wrap">
   {% if site.related_posts.size > 0 %}<div class="related-articles">
-  <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/articles">View all articles</a>)</small></h4>
+  <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/articles">Vedi tutti gli articoli</a>)</small></h4>
     <ul>
     {% for post in site.related_posts limit:3 %}
       {% assign match = false %}
