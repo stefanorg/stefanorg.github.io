@@ -20,11 +20,15 @@
 {% endif %}
 {% if site.disqus_shortname and page.comments %}{% include disqus_comments.html %}{% endif %}
 <script type="text/javascript">
-    // var feed = new Instafeed({
-    //     get: 'tagged',
-    //     tagName: 'italia',
-    //     clientId: '25294063c35e4000beaaa69c3b14916f',
-    //     resolution: 'thumbnail'
-    // });
-    // feed.run();
+	//get: 'tagged',
+    //tagName: 'italia',
+    var feed = new Instafeed({
+    	get:'user',
+    	userId: 12276081,
+		accessToken: '12276081.467ede5.85bbca1e90cd430fbb506fa5536559d2',
+        clientId: '25294063c35e4000beaaa69c3b14916f',
+        resolution: 'thumbnail',
+        limit: 25
+    });
+    feed.run();
 </script>
