@@ -4,7 +4,9 @@ description:      php zendframework zendframework2 zf2 zf1 javascript jquery
 #Comment out url when working locally to resolve base urls correctly
 url:              http://localhost:4000 #http://stefanorg.github.io
 disqus_shortname: devplayground
-
+#abilito instafeed
+instafeed:
+  clientId: '25294063c35e4000beaaa69c3b14916f'
 # Owner/author information
 owner:
   name:           Stefano Corallo
@@ -16,7 +18,7 @@ owner:
   facebook:  
   github: stefanorg
   linkedin: 
-  instagram: 
+  instagram: stefanorg
   lastfm: 
   tumblr: 
   # For Google Authorship https://plus.google.com/authorship
