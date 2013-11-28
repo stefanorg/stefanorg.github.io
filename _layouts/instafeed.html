@@ -1,0 +1,114 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+{% include head.html %}
+</head>
+
+<body class="article" itemscope itemtype="http://schema.org/WebPage">
+
+{% include browser-upgrade.html %}
+
+{% include navigation.html %}
+<style type="text/css">
+.wrapper-header {
+	background: #2a2a2a;
+	overflow: hidden;
+	height: 307px;
+	position: relative;
+	border-bottom: 1px solid white;
+	margin-bottom: 25px;
+}
+
+.wrapper-header #instafeed {
+	width: 120%;
+	height: 300px;
+	position: absolute;
+	/*top: -100px;*/
+	/*left: -100px;*/
+	z-index: 1;
+}
+
+.wrapper-header .shadow {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…gd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(50%, rgba(0,0,0,0.4)), color-stop(100%, rgba(0,0,0,0.8)));
+	background: -webkit-linear-gradient(rgba(0,0,0,0.4) 50%,rgba(0,0,0,0.8) 100%);
+	background: -moz-linear-gradient(rgba(0,0,0,0.4) 50%,rgba(0,0,0,0.8) 100%);
+	background: -o-linear-gradient(rgba(0,0,0,0.4) 50%,rgba(0,0,0,0.8) 100%);
+	background: linear-gradient(rgba(0,0,0,0.4) 50%,rgba(0,0,0,0.8) 100%);
+}
+
+.wrapper-header .wrapper-content {
+	text-align: center;
+	position: absolute;
+	bottom: 25px;
+	left: 0;
+	right: 0;
+	z-index: 2;
+}
+</style>
+<div class="wrapper-header">
+    <div id="instafeed"></div>
+    <div class="shadow"></div>
+  </div>
+
+
+<div id="main" role="main" itemprop="mainContentOfPage" itemscope itemtype="http://schema.org/Blog">
+  <div class="article-author-top">
+    {% include author-bio.html %}
+  </div>
+  <article itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+    <div class="headline-wrap">
+      <h1 itemprop="name">{{ page.title }}</h1>
+      <h4>{{ page.tagline }}</h4>
+    </div><!--/ .headline-wrap -->
+    <div class="article-wrap" itemprop="text">
+      {{ content }}
+      <hr />
+      <footer role="contentinfo">
+        <div class="article-author-bottom">
+          {% include author-bio.html %}
+        </div>
+        <p class="pull-right">Tags: {% for tag in page.tags %}<a href="{{ site.url }}/tags.html#{{ tag | cgi_encode }}" title="Pagine con tag {{ tag }}" rel="tag">#{{ tag }}</a>{% unless forloop.last %}&nbsp;&nbsp;&nbsp;{% endunless %}{% endfor %}</p>
+        <p class="byline"><strong>{{ page.title }}</strong> è stato pubblicato il <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.modified %} e modificato il <time datetime="{{ page.modified | date: "%Y-%m-%d" }}" itemprop="dateModified">{{ page.modified | date: "%B %d, %Y" }}</time>{% endif %} da <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><a href="{{ site.url }}/about" title="About {{ site.owner.name }}" itemprop="url">{{ site.owner.name }}</a></span></span>.</p>
+        {% if site.disqus_shortname and page.comments %}<section id="disqus_thread"></section>{% endif %}
+      </footer>
+    </div><!-- /.article-wrap -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrap">
+  {% if site.related_posts.size > 0 %}<div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/articles">Vedi tutti gli articoli</a>)</small></h4>
+    <ul>
+    {% for post in site.related_posts limit:3 %}
+      {% assign match = false %}
+      {% for category in post.categories %}
+        {% if page.categories contains category %}
+          {% assign match = true %}
+        {% endif %}
+      {% endfor %}
+      {% if match %}
+      <li><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->{% endif %}
+  <footer>
+    {% include footer.html %}
+  </footer>
+</div><!-- /.footer-wrap -->
+
+{% include scripts.html %}	        
+
+</body>
+</html>
