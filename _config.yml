@@ -1,5 +1,5 @@
-title:            "{{ dev playground }}"
-tagline:          A short tagline
+title:            "devplayground"
+tagline:          Semplicemente un altro blog su zendframework2 php jquery e tutto quello che mi viene in mente
 description:      php zendframework zendframework2 zf2 zf1 javascript jquery
 #Comment out url when working locally to resolve base urls correctly
 url:              http://stefanorg.github.io
@@ -14,7 +14,7 @@ owner:
   bio:            "Php zendframework doctrine jQuery and other cool stuff"
   email:          stefanorg@gmail.com
   # Social networking links are used in author-bio sidebar. Update and remove as you like.
-  twitter: 
+  twitter: stefanorg
   facebook:  
   github: stefanorg
   linkedin: 
