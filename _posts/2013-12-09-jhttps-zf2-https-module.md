@@ -7,7 +7,7 @@ tags: [https, ssl, zf2, library, module]
 comments: true
 ---
 
-JHttps è un modulo per zendframework2 che permette facilmente di configurare le rotte che vogliamo redirigire su https senza aver bisogno di modificare il virtual-host di apache o il file .htaccess
+[JHttps](https://github.com/stefanorg/JHttps) è un modulo per zendframework2 che permette facilmente di configurare le rotte che vogliamo redirigire su https senza aver bisogno di modificare il virtual-host di apache o il file .htaccess
 
 ### Installazione
 
