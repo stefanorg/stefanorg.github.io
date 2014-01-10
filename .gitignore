@@ -1,1 +1,26 @@
-/_site
+/_site### https://raw.github.com/github/gitignore/master/Node.gitignore
+
+lib-cov
+lcov.info
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+build
+.grunt
+
+node_modules
+
+
+### https://raw.github.com/github/gitignore/master/Jekyll.gitignore
+
+_site/
+
+
